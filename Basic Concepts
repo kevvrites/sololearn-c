@@ -1,0 +1,230 @@
+BASIC CONCEPTS
+STARTED 08/28/2021
+COMPLETED 08/28/2021
+--------------------------------------------
+What is C
+C used to write everything from operating systems to complex programs like Python interpreter, Git, etc.
+C is versatile by design. Low-level language that relates closely to the way machines work while still being easy to learn.
+Understanding how computer memory works is an important aspect of the C programming language.
+--------------------------------------------
+Hello, World!
+
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+
+Function used for generating output defined in stdio.h. This is where the printf function information is, called a header file.
+main() function is the entry point to a program. Curly brackets show beginning and end of a function.
+
+The \n escape sequence outputs a newline character. Escape sequences begin with \
+Semicolon indicates the end of a statement. Every statement must end with a semicolon.
+return 0; line terminates the main() function and returns the value 0.
+
+0 returned generally means that program executed successfully. Any other number indicates program failure.
+--------------------------------------------
+Data Types
+int     integer
+float   floating point, decimal number
+double  double-precision floating point value
+char    single character
+
+C has a built-in sizeof operator that gives the memory requirements for a data type.
+Amount of storage required for each of these types varies by platform.
+
+#include <stdio.h>
+
+int main() {
+    printf("int: %ld \n", sizeof(int)); #returns 4
+    printf("float: %ld \n", sizeof(float)); #returns 4
+    printf("double: %ld \n", sizeof(double)); #returns 8
+    printf("char: %ld \n", sizeof(char)); $returns 1
+
+    return 0;
+}
+
+The printf statements have two arguments. First argument is format specifier (%ls). Second argument returns the sizeof value.
+%ld (long decimal) replaced by the value in the second argument
+
+C does not have a boolean type.
+A printf statement can have multiple format specifiers with corresponding arguments to replace the specifiers.
+Format specifiers are also conversion specifiers.
+
+Variables
+A variable is a name for an area in memory.
+The name of the variable (identifier) must begin with a letter or an underscore. Can only have letters, digits, underscores.
+snake_case is common in C.
+Variables must be declared as a data type before usage
+The value for a declared variable is changed with an assignment statement using the = sign.
+Declare and initialize variables in a single statement: int var_name = 10;
+Declare multiple variables on a single line by separating them with a comma.
+%f (float) and %c (char) format specifiers
+
+C programming language is case-sensitive.
+
+A constant stores a value that cannot be changed after assignment. Use uppercase identifiers for constants.
+Use const keyword in variable declaration.
+const double PI = 3.14;
+
+Constant must be initialized with a value when declared
+Another way to define a constant is with #define preprocessor directive.
+The #define directive uses macros for defining constant values.
+
+#define PI 3.14
+Before compilation, the preprocessor replaces every macro identifier in the code with the corresponding value from the directive.
+Every occurance of PI replaced with 3.14.
+Final code sent to compiler will have the constant values in place.
+
+const vs #define
+const uses memory for storage, #define does not
+#define does not need a semicolon character at the end
+--------------------------------------------
+Input & Output
+Multiple ways of taking user input.
+getchar() returns the value of the next single character input
+
+#include <stdio.h>
+int main() {
+    char a = getchar();
+    printf("You entered: %c", a);
+    return 0;
+}
+
+NOTE: gets() HAS BEEN REMOVED DUE TO VULNERABILITIES; USE fgets
+gets() function used to read input as an ordered sequence of characters, a string
+
+#include <stdio.h>
+int main() {
+    char a[100];
+    gets(a);
+    printf("You entered: %s", a);
+    return 0;
+}
+
+fgets() function used to read input from a file and return string
+Use stdin when taking keyboard inputs (no file path)
+fgets(string, size, file)
+
+#include <stdio.h>
+int main() {
+    char a[10];
+    fgets(a, 11, stdin); #returns the first 10 characters of string a
+    printf("You entered: %s", a);
+    return 0;
+}
+
+scanf() scans input that matches format specifiers
+#include <stdio.h>
+
+int main() {
+    int a;
+    scanf("%d", &a);
+    printf("You entered: %d", a)
+    return 0;
+}
+
+The & sign before the variable name is the address operator. It gives the address (location in memory) of a variable.
+scanf places an input value at a variable address.
+
+scanf() stops reading as soon as it encounters a space. "Hello World" is two separate inputs for scanf().
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter two numbers:");
+    scanf("%d %d", &a, &b)
+    
+    printf("\nSum: %d", a+b);
+    return 0;
+}
+
+Output
+putchar()   Outputs a single character
+puts()      Display output as a string (stored in a char array)
+
+scanf() function used to assign input to variables. It assigns input based on format specifiers that convert input. If conversion fails, then assignment fails.
+& address operator is not required for strings because the string name is the pointer.
+Format specifiers begin with % and are used to assign values to corresponding arguments after the control string. Blanks, tabs, and newlines are ignored.
+%[*][max_field]conversion character
+The optional * will skip the input field.
+The optional max_width gives the maximum number of characters to assign to an input field.
+
+Specifiers:
+d    decimal
+c    character
+s    string
+f    float
+x    hexadecimal
+
+printf() call requires a format string (can include escape sequences and format specifiers)
+Escape sequences:
+\n  newline
+\t  horizontal tabs
+\\  backslash
+\b  backspace
+\'  single quote
+\"  double quote
+
+Format specifiers:
+%[-][width].[precision]conversion character
+Optional - specifies left alignment of data
+Optional width gives minimum number of characters for data
+Period . separates width from precision
+Optional precision gives the number of decimal places for numeric data. If string, then precision is the number of characters to print.
+d    decimal
+c    character
+s    string
+f    float
+e    scientific notation
+x    hexadecimal
+
+To print % symbol, use %% in format string.
+--------------------------------------------
+Comments
+Comments start with /* and end with */. They can be same line, or multiple lines.
+/* One line comment */
+/* Multiple
+ * Line
+ * Comment
+ */
+
+ Single line comments can be double slash.
+ // Single line comment
+--------------------------------------------
+Operators
+C supports arithmetic operators. Operators are used to form a numeric expression, with operands and operators.
+
++   Addition
+-   Subtraction
+*   Multiplication
+/   Division
+%   Modulus division
+
+Division: for two ints, it removes remainders to return an integer. When one or both operands are real numbers (float/double) the result is a real number.
+Modulus returns remainder of integer division. Does not work on floats or doubles.
+
+Operator precedence
+Follows PEMDAS.
+
+Type conversion
+Automatic conversion as necessary for numeric expressions.
+Converts integer to float when int + float. Returns float.
+Explicit type conversion by type casting.
+var = (float) 0;
+Explicit type conversion is considered good programming style.
+
+ASsignment statement evaluates the expression and assigns the value to a variable.
+Shorthand assignment operators exist in C.
++=, -=, /=, *=, /=, %=
+
+Increment operator ++ adds one to a variable.
+Decrement operator -- subtracts 1 from a variable.
+Prefix or postfix positions are possible.
+Prefix increments/decrements the variable and then uses it in the assignment statement.
+Postfix form uses the value of the variable first, and then increments/decrements it.
+a = 0;
+b = a++; // b = 0, a = 1
+b = ++a; // b = 1, a = 1
