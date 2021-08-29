@@ -1,0 +1,210 @@
+FUNCTIONS, ARRAYS & Pointers
+STARTED 08/29/2021
+COMPLETED 08/29/2021
+--------------------------------------------
+Functions
+Functions are used to accomplish a program solution as a series of subtasks.
+
+A function:
+- is a block of code that performs a specific tasks
+- is reusable
+- makes the program easier to test
+- can be modified without changing the calling program
+
+Declarations of functions appear above the main() function.
+return_type function_name(parameters);
+The return_type is the type of value the function returns
+The function_name is followed by parentheses
+Optional parameter names with type declarations are placed inside
+
+A function is not required to return a value, but a return type must still be declared.
+void is used for the type.
+
+When the parameter types and names are included in a declaration, the declaration is called a function prototype.
+
+#include <stdio.h>
+
+int square (int num);
+
+int main() {
+    int x, result;
+
+    x = 5;
+    result = square(x);
+    printf("%d squared is %d\n", x, result);
+
+    return 0;
+}
+
+int square (int num) {
+    int y;
+
+    y = num * num
+
+    return(y);
+}
+Function definitions usually appear after the main() function.
+The return statement is used to send a value back to the calling statement.
+
+A function's parameters receive values required by the function.
+Values are passed as arguments through the function call.
+Arguments are passed by value, so a copy of the data is sent instead of the actual variable, so it won't change.
+
+The parameters in a function declaration are the formal parameters. The values passed to these parameters are the arguments, which are the actual parameters.
+
+Variable scope is the visibility of variables in a program.
+Variables declared in a function are local to the block of code and cannot be used outside.
+Variables declared outside all functions are global.
+Constants declared with #define are global.
+
+Use global variables with caution. They should be initialized before using and can lead to errors.
+
+Static variables have a local scope but are not destroyed when the function is exited.
+Static variable initialized when declared and requires the prefix static.
+static int num = 1;
+--------------------------------------------
+Recursive Functions
+A recursive function is one that calls itself and includes a base case (exit condition) to end the recursive c all.
+A recursive solution requires a base case to prevent an infinite loop.
+
+#include <stdio.h>
+
+int factorial(int num);
+
+int main() {
+    int x = 5;
+
+    printf("The factorial of %d is %d\n", x, factorial(x));
+
+    return 0;
+}
+
+int factorial(int num) {
+
+    if (num == 1)
+        return (1);
+    else
+        return (num * factorial(num - 1));
+}
+--------------------------------------------
+Arrays
+An array is a data structure that stores a collection of related values that are all the same type.
+Arrays can represent related data with one name.
+An array declaration includes the type of values it stores, an identifier, and square brackets with a number that indicates array size.
+
+int array_name[size];
+
+Initialize an array when it is declared.
+
+float prices[5] = {3.2, 5.5, 2.0, 1.4, 0.9};
+Initial values separated by commas and placed inside curly braces.
+Arrays can be partially initialized. The missing values are set to 0.
+An array is stored in contiguous memory locations and cannot change size after being declared.
+
+The contents of an array are called elements, each indexed.
+Index numbers start at 0. To access an element, refer to its index number.
+x[0] is the 0th element of array x.
+The value of an array element can be changed through an assignment statement, which uses the index.
+The index of an array is also referred to as the subscript.
+
+Many algorithms involve traversing the array. This is implemented with a for loop because it naturally corresponds to the array indexes.
+--------------------------------------------
+Two-Dimensional Arrays
+A two-dimensional array is an array of arrays (basically a table). A two-dimensional array declaration indicates the number of number rows and the number of columns.
+
+int a[2][3]; /* A 2 x 3 array */
+
+Nested curly braces are used to initialize elements row by row.
+
+int a[2][3] = {
+    {3, 2, 6},
+    {4, 5, 20}
+};
+
+An array can have more than two dimensions. a[1][2][3] is a three dimension array.
+
+To access an element of a two-dimensional array, both the row index and column index are required.
+A for loops iterates through a one-dimensional array, nested for loops traverse a two-dimensional array.
+--------------------------------------------
+Pointers
+C is designed to easily access memory locations and perform memory-related operations.
+The scanf() function places the value entered by the user at the location (address) of the variable.
+
+int num;
+scanf("%d", &num); //&num is the address of the variable num
+printf("%d", num);
+
+A memory address is given as a hexadecimal number.
+Hexadecimal (hex) is a base-16 number system that uses digits 0 through 9 and letters A through F to represent a group of four binary digits that can have a value from 0 to 15.
+The address of a variable stays the same from declaration to the end of the scope.
+
+Pointers allow you to easily work with memory locations.
+A pointer is a variable that contains the address of another variable. It points to the location assigned to a variable and can indirectly access the variable.
+
+Pointers are declared using the * symbol and take the form:
+pointer_type *identifier
+pointer_type is the type of data the pointer will be pointing to. The actual pointer data type is a hexadecimal number, but when declaring a pointer, you must indicate what type of data it will be pointing to.
+
+int j = 64;
+int *p = NULL;
+p = &j
+// The address of j is &j (4cf5ba94)
+// p contains address p (4cf5ba94)
+// The value of j is j 64
+p is pointing to the value *p (63)
+
+Pointers should be initialized to NULL until they are assigned a valid location.
+Pointers can be assigned the address using the ampersand & sign.
+To see what the pointer is pointing to, use the * again. This * is called the dereference operator, and the process is called dereferencing.
+
+Some algorithms use a pointer to a pointer. This type of variable declaration uses ** and can be assigned the address of another pointer.
+int x = 12;
+int *p = NULL;
+int **ptr = NULL;
+p = &x;
+ptr = *p;
+
+Pointers can be used in expressions. Arithmetic operators can be applied to whatever the pointer is pointing to.
+
+int x = 5;
+int y;
+int *p = NULL;
+p = &x;
+
+y = *p + 2; // y = 7
+y += *p;    // y = 12
+*p = y;     // x = 12
+(*p)++;     // x = 13
+--------------------------------------------
+More On Pointers
+Pointers are especially useful with arrays. With pointers, point to the first array element and use address arithmetic to traverse the array.
++ is used to move forward to a memory location
+- is used to move backward to a memory location
+
+An array name acts as a pointer to the first element of the array.
+p = a can be thought of as p = &a[0]
+
+Assignment operators can also change address the pointer contains.
+When a pointer is incremented, the memory address increases by the number of bytes being pointed to.
+Comparison operators can be used to compare pointer addresses.
+
+Pointers expand the possibilities for functions. Functions can alter actual data instead of a copy of data.
+To change the actual values of variables, the calling statement passes addresses to pointer parameters in a function.
+
+This program swaps the values of two variables using pointers.
+void swap (int *num1, int *num2) {
+    int temp;
+
+    temp = *num1;
+    *num1 = *num2;
+    *num2 = temp;
+}
+--------------------------------------------
+Functions & Arrays
+An array cannot be passed by value to a function.
+An array name is a pointer, so passing an array name to a function is passing a pointer to the array.
+
+A pointer to an array can be returned.
+A pointer, not an array, is declared to store the value returned by the function.
+When a local variable is being passed out of a function, you need to declare it as static in the function.
+a[k] is the same thing as *(a + k)
