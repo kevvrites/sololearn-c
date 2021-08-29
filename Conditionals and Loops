@@ -1,0 +1,135 @@
+CONDITIONALS AND LOOPS
+STARTED 08/28/2021
+COMPLETED 08/29/2021
+--------------------------------------------
+Conditionals
+Conditionals are used to perform different actions depending on whether a condition is true or false.
+
+The if statement is called a conditional control structure because it executes statements when an expression is true.
+if is also known as a decision structure.
+
+if (expression)
+    statements
+
+The expression is either true or false, and statements will execute if the expression is true.
+
+Relational Operators
+<   less than
+<=  less than or equal to
+>   greater than
+>=  greater than or equal to
+==  equal to
+!=  not equal to
+
+An expression that evaluates to a non-zero value is considered true.
+
+The if statement can include an optional else clause that executes when the expression is false.
+if (expression)
+    statements
+else
+    statements
+
+Another way to make an if-else statement is using the ?: operator on a conditional expression.
+The operator can only have one statement associated with the if and the else.
+
+y = (x > 5) ? 5 : x;
+Equivalent to:
+if (x > 5)
+    y = 5;
+else
+    y = x;
+--------------------------------------------
+Nested if Statements
+An if statement can include another if statement to create further requirements.
+The else clause is associated with the closest if unless curly braces {} are used to change the association.
+
+When other actions are needed, the if-else if statmenet can be used.
+There can be multiple else if clauses and the last else clause is optional.
+The later else-if expressions will not evaluate if any of the above expressions are true.
+
+if-else if is preferred over nested if statements for clarity.
+--------------------------------------------
+The switch Statement
+switch statement branches program control by matching the result of an expression with a constant case value.
+
+switch (expression) {
+    case value1:
+        statements
+        break;
+    case value2:
+        statements
+        break;
+    default:
+        statements
+}
+
+There can be multiple cases with unique labels.
+The optional default case is executed when none of the cases match.
+A break statement is needed in each case to branch to the end of the switch statement.
+Without the break statement, program falls through to the next case statement.
+This can be useful when the same statement is needed for several cases.
+--------------------------------------------
+Logical Operators
+Logical operators && and || used to form a compound Boolean expression that tests multiple conditions.
+! is used to reverse the state of a Boolean expression.
+
+Logical AND && operator returns a true result only when both expressions are true.
+A compound Boolean expression is evaluated from left to right.
+Evaluation stops when the result is already determined.
+
+Logical OR || operator returns a true result when any one expression or both expressions are true.
+&& has higher precedence than || and will be evaluated first, but parentheses for clarity.
+
+Logical NOT ! operator returns the reverse of the value. NOT true returns false, NOT false returns true.
+Any non-zero value is considered true and a 0 is false. The logical NOT operator converts a true value to 0 and a false value to 1.
+--------------------------------------------
+The while Loop
+The while statement is a loop structure
+while (expression) {
+    statements
+}
+
+The while loop runs as long as the expression is true.
+An infinite loop is one that continues indefinitely because the loop condition never evaluates to false.
+
+The do-while loop executes the loop statements before evaluating the expression to determine if the loop should be reepeated.
+do {
+    statements
+} while (expression);
+
+The expression evluates to either true or false. It always executes at least once, even if the expression is false.
+
+The break statement is useful for immediately exiting a loop.
+When you want to remain in the loop, but skip ahead to the next iteration, use the continue statement.
+
+break and continue should not be a substitute for a better algorithm.
+--------------------------------------------
+The for Loop
+The for statement is a loop structure that executes statements a fixed number of times.
+
+for (initvalue; condition; increment) {
+    statements;
+}
+The initvalue is a counter set to an initial value. This is performed once.
+The condition is a Boolean expression that compares the counter to a value before each iteration.
+The increment increases or decreases the counter by a set value.
+
+for (i = 0; i < max; i++) {
+    // statements
+}
+
+The for loop can contain multiple expressions separated by commas in each part.
+for (x = 0, y = num; x < y; i++, y--) {
+    statements;
+}
+Also, you can skip the initvalue, condition, and/or the increment.
+int i = 0;
+int max = 10;
+for (; i < max; i++) {
+    statements
+}
+
+Loops can also be nested. For each iteration of the outer loop, the inner loop reepeats the entire cycle.
+
+A break in the inner loop exits the loop and the outer loop continues.
+A continue statement works similarly in nested loops.
