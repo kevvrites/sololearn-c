@@ -1,0 +1,103 @@
+STRINGS & FUNCTION POINTERS
+STARTED
+COMPLETED
+--------------------------------------------
+Strings
+A string in C is an array of characters that ends with a NULL character '\0'
+A string declaration can be made in multiple ways.
+
+char str_name[str_len] = "string";
+Creates a string named str_name with str_len characters and initializes it to the value of "string"
+Compiler automatically adds NULL character to char array when string literal is provided
+The array size must be at least one character longer than the expected string length
+If the declaration does not have a str_len, then it will be automatically calculated on the input
+
+Strings can also be declared as a set of characters:
+char str3[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
+
+NULL character must be added explicitly, characters are in single quotes.
+The name of a string acts as a pointer.
+A string literal is a text enclosed in double quotation marks.
+A character cannot be treated as a string.
+
+String pointer declaration such as char *str = "stuff"; is considered a constant andcannot be changed
+
+Standard Library string functions:
+#include <string.h>
+strlen()    get length of string
+strcat()    merge two strings
+strcpy()    copy one string to Another
+strlwr()    convert string to lower case
+strupr()    convert string to upper case
+strrev()    reverse string
+strcmp()    compare two strings
+
+String Input
+To retrieve a line of text or string from user, use scanf() and fgets() functions.
+scanf() reads inputs based on format specifiers. No need for & to access the address
+To read up to a specified number of characters, use fgets().
+Using fgets() over gets() prevents buffer overflow, which happens when the array isn't big enough for the input.
+
+fgets(string_name, char_length, pointer)
+stdin is standard input, from the keyboard
+The newline character is stored by fgets.
+fgets() reads only n-1 characters from stdin because there must be room for '\0'
+
+String Output
+fputs(), puts(), and printf() handles string output
+
+fputs() requires the name of the string and a pointer to where the string is output
+To print the the screen, use stdout (standard output)
+
+puts() takes a string argument can also be used to display output
+It adds a newline to output
+
+printf() prints an input to the screen
+--------------------------------------------
+String Functions
+A formatted string can be created with sprintf() function. Useful for building a string from other data types.
+
+#include <stdio.h>
+int main()
+{
+    char info[100];
+    char dept[] = "HR";
+    int emp = 75;
+    sprintf(info, "The %s dept has %d employees.", dept, emp);
+    printf("%s\n", info);
+
+    return 0;
+}
+
+sscanf() is useful for scanning a string for values.
+The function reads values from a string and stores them at the corresponding variable addresses.
+
+The string.h library contains a lot of string functions.
+
+strlen(str)             Returns the length of the string stored in str, not including the NULL character.
+strcat(str1, str2)      Appends str2 to the end of str1 and returns a pointer to str1
+strcpy(str1, str2)      Copies str2 to str1.
+strncat(str1, str2, n)  Appends first n characters of str2 to the end of str1 and returns a pointer to str1.
+strncpy(str1, str2, n)  Copies the first n characters of str2 to str1.
+strcmp(str1, str2)      Returns 0 when str1 is equal to str2, less than 0 when str1 < str2, and greater than 0 when str1 > str2.
+strncmp(str1, str2, n)  Returns 0 when the first n characters of str1 is equal to the first n characters of str2, less than 0 when str1 < str2, and greater than 0 when str1 > str2.
+strchr(str1, c)         Returns a pointer to the first occurence of character c in str1, or NULL if the character not found.
+strrchr(str1, c)        Searches str1 in reverse and returns a pointer to the position of character c in str1, or NULL if character not found.
+strstr(str1, str2)      Returns a pointer to the first occurence of str2 in str1, or NULL if str2 not found.
+
+stdio.h library contains functions for converting a string to a number:
+int atoi(str)       ASCII to integer. Converts str to the equivalent int value. 0 is returned if the first character is not a number or no numbers are encountered.
+double atof(str)    ASCII to float. Converts str to the equivalent double value. 0.0 is returned if the first character is not a number or no numbers are encountered.
+long int atol(str)  ASCII to long int. Converts str to the equivalent long integer value. 0 is returned if the first character is not a number or no numbers are encountered.
+
+atoi() lacks error handling, so recommended to use strtol() to ensure proper error handling.
+
+A two-dimensional array can be used to store related strings. The sizes should be large enough to hold the longest string.
+It can be cumbersome to access the elements.
+Easier way to deal with a collection of related strings is with an array of pointers.
+The array of string pointers has a more ragged structure. There is no limit to string length, and items can be referred to by a pointer in the first character for each string.
+The actual strings are being referenced by these pointers.
+--------------------------------------------
+Function Pointers
+--------------------------------------------
+void Pointer
