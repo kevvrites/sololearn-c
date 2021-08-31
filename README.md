@@ -10,7 +10,7 @@ C is a general-purpose programming language that has been around for nearly 50 y
 
 Starting Point: I have no experience with C.
 
-Basic Concepts
+Basic Concepts (08/28/2021)
 - What is C
 - Hello, World!
 - Data Types
@@ -18,7 +18,7 @@ Basic Concepts
 - Comments
 - Operators
 
-Conditionals and Loops
+Conditionals and Loops (08/29/2021)
 - Conditionals
 - Nested if Statements
 - The switch Statement
@@ -26,7 +26,7 @@ Conditionals and Loops
 - The while Loop
 - The for Loop
 
-Functions, Arrays & Pointers
+Functions, Arrays & Pointers (08/29/2021)
 - Functions
 - Recursive Functions
 - Arrays
@@ -35,19 +35,19 @@ Functions, Arrays & Pointers
 - More On Pointers
 - Functions & Arrays
 
-Strings & Function Pointers
+Strings & Function Pointers (08/30/2021)
 - Strings
 - String Functions
 - Function Pointers
 - void Pointer
 
-Structures & Unions
+Structures & Unions (08/31/2021)
 - Structures
 - Working With Structures
 - Unions
 - Working With Unions
 
-Memory Management
+Memory Management (08/31/2021)
 - Working With Memory
 - The malloc Function
 - calloc and realloc
