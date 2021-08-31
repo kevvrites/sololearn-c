@@ -1,6 +1,6 @@
 STRINGS & FUNCTION POINTERS
-STARTED
-COMPLETED
+STARTED 08/30/2021
+COMPLETED 08/30/2021
 --------------------------------------------
 Strings
 A string in C is an array of characters that ends with a NULL character '\0'
@@ -99,5 +99,143 @@ The array of string pointers has a more ragged structure. There is no limit to s
 The actual strings are being referenced by these pointers.
 --------------------------------------------
 Function Pointers
+Function pointers point to executable code for a function in memory.
+Function pointers can be stored in an array or passed as arguments to other functions.
+
+A function pointer declaration uses the * like other pointers.
+return_type (*func_name)(parameters)
+
+The parentheses around (*func_name) are important. Otherwise, the compiler will think the function is RETURNING a pointer.
+After declaration, assignment to a function is next.
+
+#include <stdio.h>
+void say_hello(int num_times); // function
+
+int main() {
+    void (*funptr)(int); // function pointer
+    funptr = say_hello; // pointer assignment
+    funptr(3); //function call
+
+    return 0;
+}
+
+void say_hello(int num_times) {
+    int k;
+    for (k = 0; k < num_times; k++)
+        printf("Hello\n");
+}
+
+A function name points to the start of the executable code.
+It isn't necessary to include & and * in the function assignment and call.
+
+An array of function pointers can replace a switch or an if statement for choosing an action.
+
+#include <stdio.h>
+int add(int num1, int num2);
+int subtract(int num1, int num2);
+int multiply(int num1, int num2);
+int divide(int num1, int num2);
+
+int main()
+{
+    int x, y, choice, result;
+    int (*op[4])(int, int);
+
+    op[0] = add;
+    op[1] = subtract;
+    op[2] = multiply;
+    op[3] = divide;
+    printf("Enter two integers: ");
+    scanf("%d%d", &x, &y);
+    printf("Enter 0 to add, 1 to subtract, 2 to multiply, or 3 to divide: ");
+    scanf("%d", &choice);
+    result = op[choice](x, y);
+    printf("%d", result);
+
+    return 0;
+}
+
+int add(int x, int y) {
+    return(x + y)
+}
+
+int subtract(int x, int y) {
+    return(x - y)
+}
+
+int multiply(int x, int y) {
+    return(x * y)
+}
+
+int divide(int x, int y) {
+    if (y != 0)
+        return (x / y);
+    else
+        return 0;
+}
+
+The statement int(*op[4])(int, int); declares the array of function pointers.
+Functions assigned to the array have two int parameters and return an int.
+result = op[choice](x,y); executes the function based on the choice
 --------------------------------------------
 void Pointer
+A void pointer is used to refer to any address type in memory and has a declaration that looks like: void *ptr;
+When dereferencing a void pointer, you must first type cast the pointer to the appropriate data type before dereferencing with *.
+
+int x = 33;
+float y = 12.4;
+char c = 'a';
+void *ptr;
+
+ptr = &x;
+printf("void ptr points to %d\n", *((int *)ptr));
+ptr = &y;
+printf("void ptr points to %f\n", *((float *)ptr));
+ptr = &c;
+printf("void ptr points to %c", *((char *)ptr));
+
+You cannot perform arithmetic with void pointers.
+
+Void pointers are often used for function declarations.
+void * square (const void *);
+
+Using a void * return type allows for any return type.
+Parameters that are void * accept any argument type.
+If you want to use data without changing it, declare it const.
+Leave out parameter name to further insulate the declaration from implementation. Declaring a function this way allows the definition to be customized as needed.
+
+#include <stdio.h>
+
+void* square (const void* num);
+
+int main() {
+    int x, sq_int;
+    x = 6;
+    sq_int = square(&x);
+    printf("%d squared is %d\n", x, sq_int);
+
+    return 0;
+}
+
+void* square (const void *num) {
+    int result;
+    result = (*(int *)num) * (*(int *) num);
+    return result;
+}
+
+The square function has been written to multiply ints, whch is why the num void pointer is cast to an int.
+If the implementation needs to allow multiplication of floats, then only the definition needs to be changed.
+
+Pass a function pointer to another function.
+A function pointer used as an argument is referred to as a "callback function" because the receiving function calls it back.
+
+qsort() function in stdlib.h header uses this technique.
+
+Quicksort is a widely used algorithm for sorting an array. Include the stdlib.h file and write a compare function that matches the declaration used in qsort.
+
+void qsort(void *base, size_t num, size_t width, int (compare)(const void *, const void *))
+void *base  A void pointer to the array
+size_t num  The number of elements in the array
+size_t width    The size of an element
+int (*compare (const void *, const void *)) A function pointer which has two arguments and returns 0 when the arguments have the same value, < 0 when arg1 comes before arg2, and >0 when arg1 comes after arg2.
+
