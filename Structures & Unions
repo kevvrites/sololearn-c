@@ -1,0 +1,167 @@
+STRUCTURES AND UNIONS
+STARTED 08/31/2021
+COMPLETED 08/31/2021
+--------------------------------------------
+Structures
+A structure is a user-defined data type that groups related variables of different data types.
+
+A structure declaration uses struct, a structure tag for reference, and curly braces with the members.
+struct course {
+    int id;
+    char title[40];
+    float hours;
+};
+//Defines a new data type called course that has three members.
+
+Structure members can be of any data type, including basic types, strings, arrays, pointers, etc.
+A structure is also called a composite or aggregate data type, or records.
+A semicolon is needed after structure declaration.
+
+Declare variables of a structure data type by using the struct keyword and tag, then the variable name.
+struct course mem101; //declares a variable mem101 with data type course
+
+A struct variable is stored in a contiguous block of memory. The sizeof operator must be used to get the number of bytes needed.
+
+A struct variable can also be initialized in the declaration using initial values.
+Type cast is also needed if initalized after declaration.
+struct student s1;
+s1 = (struct student) {19, 9, "John"};
+Named member initialization is possible to initalize corrseponding members.
+struct student s1 = { .grade = 9, .age = 19, .name = "John"};
+
+Access the members of a struct variable using the .(dot operator) between the variable name and the member name.
+s1.age = 19; // assign the value of 19 to age of s1 variable
+You can also assign one structure to another of the same type.
+
+typedef creates a type definition that simplifies code and makes a program readable.
+typedef used with structures because it eliminates the need to use struct when declaring variables.
+
+typedef struct {
+    int id;
+    char title[40];
+} course;
+
+course cs1;
+--------------------------------------------
+Working With Structures
+The members of a structure can also be structures.
+
+A struct definition must appear before it can be used inside another struct.
+Use multiple dots to specify members within nested structs.
+
+Pointers to structures can also be defined.
+
+struct myStruct *struct_ptr;    defines a pointer to the myStruct structure
+struct_ptr = &struct_var;       stores the address of the structure variable struct_var in the pointer struct_ptr
+struct_ptr -> struct_mem;       accesses the value of the structure member struct_mem
+
+The -> operator allows access of struct members using the pointer.
+(*st).age is the same as st->age.
+
+A function can have structure parameters accept arguments by value.
+To have a function change actual values in a struct variable, pointer parameters are required.
+
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    int id;
+    char title[40];
+    float hours;
+} course;
+
+void update_course(course *class);
+void displaycourse(course class);
+
+int main() {
+    course cs2;
+    update_course(&cs2);
+    display_course(cs2);
+    return 0;
+}
+
+void update_course(course *class) {
+    strcpy(class->title, "C++ Fundamentals");
+    class->id = 101;
+    class->hours = 4.5;
+}
+
+void display_course(course class) {
+    printf("%d\t%s\t%3.2f\n"), class.id, class.title class.hours);
+}
+
+AN array can store structures. After declaration, and element is accessible with the index number.
+THe dot operator is then used to access members of the element.
+Arrays of structures used for data structures like linked lists, binary trees, and more.
+
+#include <stdio.h>
+
+typedef struct {
+    int h;
+    int w;
+    int l;
+} box;
+
+int main() {
+    box boxes[3] = {{2, 6, 8}, {4, 6, 6}, {2, 6, 9}};
+    int k, volume;
+
+    for (k = 0; k < 3; k++) {
+        volume = boxes[k].h * boxes[k].w * boxes[k].l;
+        printf("box %d volume %d\n", k, volume);
+    }
+    return 0;
+}
+--------------------------------------------
+Unions
+A union allows storage of different data types in the same memory location.
+Similar to a structure because it has members.
+Union variable uses the same memory location for all members and only one member at a time can occupy the memory location.
+
+A union declaration uses the keyword union, union tag, and curly braces with a list of members.
+Union members can be any data type.
+
+union val {
+    int int_num;
+    float fl_num;
+    char str[20];
+};
+
+After declaring a union, declare union variables.
+union val u1;
+
+Unions are used for memory management. The largest member data type is used to determine the size of the memory to share and then all members use this one location.
+Limits memory fragmentation.
+
+Access the members of the union variable with the . dot operator.
+When assignment is performed, the union memory location will be used for that member until reassigned.
+Trying to access a member that isn't occupying the memory location gives unexpected results.
+The last assignment overrides previous assignments.
+
+Unions are often used with structures. A structure can track which union member stores values.
+The union can be declared inside the structure. The union name is at the end of the declaration.
+A union can also contain a structure within.
+
+Example: car uses Vehicle ID or license plate, but not both. Union tracks one, id_type tracks the union.
+--------------------------------------------
+Working With Unions
+A pointer to a union points to the memory location of the union.
+A union pointer is declared using keyword union and the union tag *ptrname.
+
+union val info;
+union val *ptr = NULL;
+ptr = &info;
+ptr->int_num = 10;
+
+Access the union members through a pointer using the -> operator.
+A function can have union parameters accept arguments by value when a copy is needed.
+For a function to change the actual value in a union memory location, pointer parameters are required.
+
+void set_id(union id *item) {
+    item->id_num = 42;
+}
+
+Arrays can store unions.
+After declaring an array of unions, an element is accessible with the index number.
+An array stores collection values that are all the same type.
+Arrays of unions allow storing values of different types.
