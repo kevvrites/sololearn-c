@@ -1,6 +1,6 @@
 THE PREPROCESSOR
 STARTED 09/01/2021
-COMPLETED
+COMPLETED 09/01/2021
 --------------------------------------------
 Preprocessor Directives
 The C preprocessor uses the # directives to make substitutions in program source code before compilation.
@@ -117,4 +117,4 @@ The ## operator is also called the token pasting operator because it appends tok
 
 int x1 = 125;
 int x2 = 250;
-printf("%d\n", VAR(x,1))
+printf("%d\n", VAR(x,1)) //prints 125
