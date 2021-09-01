@@ -53,13 +53,13 @@ Memory Management (08/31/2021)
 - calloc and realloc
 - Dynamic Strings & Arrays
 
-Files & Error Handling
+Files & Error Handling (09/01/2021)
 - Working With Files
 - Binary File I/O
 - Error Handling
 - Using Error Codes
 
-The Preprocessor
+The Preprocessor (09/01/2021)
 - Preprocessor Directives
 - Conditional Compilation Directives
 - Preprocessor Operators
