@@ -1,0 +1,134 @@
+FILES & ERROR HANDLING
+STARTED 09/01/2021
+COMPLETED
+--------------------------------------------
+Working With Files
+An external file can be opened, read from, and written to using C.
+C includes the FILE type for defining a file stream. The file stream keeps track of where reading and writing last occured.
+
+stdio.h library includes file handling functions:
+FILE typedef for defining a file pointer
+
+fopen(filename, mode) returns a file pointer to file filename which is opened using mode.
+If a file cannot be opened, NULL is returned.
+
+Modes:
+r   open for reading (file must exist)
+w   open for writing (file does not need to exist)
+a  open for append (file does not need to exist)
+r+ open for reading and writing from beginning
+w+ open for reading and writing, overwriting the file
+a+ open for reading and writing, appending to file
+
+fclose(fp) closes file opened with FILE fp, returning 0 if close was successful.
+EOF (end of file) is returned if there is an error in closing.
+
+Close files once they are used and completed.
+
+A file can be read one character at a time or an entire string can be read into a character buffer (char array for temp storage)
+
+fgetc(fp) returns the next character from the file pointed to by fp. If the end of the file reached, return EOF
+fgets(buff, n, fp) Reads n-1 characters from the file pointed to by fp and stores the string in buff. A null character is appended as the last character in buff.
+If fgets gets '\n' or EOF before n-1 characters is reached, then the characters up to that point are stored in buff.
+
+fscanf(fp, conversion_specifiers, vars) Reads characters from the file pointed to by fp and assigns input to a list of variable pointers vars using conversion_specifiers.
+fscanf stops reading when a space or newline is encountered.
+
+When writing to a file, '\n' must be explicitly added.
+
+fputc(char, fp) Writes character char to the file pointed to by fp
+fputs(str, fp) Writes string str to the file pointed to by fp
+fprintf(fp, str, vars) Prints string str to the file pointed to by fp. str can optionally include format specifiers and a list of variables vars
+--------------------------------------------
+Binary File I/O
+Write entire blocks of memory to a file using binary functions.
+Using fopen():
+rb  open for reading
+wb  open for writing
+ab  open for append
+rb+ open for reading and writing from beginning
+wb+ open for reading and writing, overwriting file
+ab+ open for reading and writing, appending to file
+
+fwrite(ptr, item_size, num_items, fp) Writes num_items instead of item_size size from pointer ptr to the file pointed to by the file pointer fp
+fread(ptr, item_size, num_items, fp) Reads num_items items of item_size size from the file pointed to by file pointer fp into memory pointed to by ptr
+fclose(fp) Closes file opened with file fp, returning 0 if close was successful. EOF for closing error.
+feof(fp) returns 0 when the end of the file stream has been reached.
+
+FILE *fptr;
+int arr[10];
+int x[10];
+int k;
+
+for (k=0; k < 10; k++) // generate array
+    arr[k] = k;
+
+// write array to file
+fptr = fopen("datafile.bin", "wb");
+fwrite(arr, sizeof(arr[0]), sizeof(arr)/sizeof(arr[0]), fptr);
+fclose(fptr);
+
+// read array from file
+fptr = fopen("datafile.bin", "rb");
+fread(x, sizeof(arr[0]), sizeof(arra)/sizeof(arr[0]), fptr);
+fclose(fptr);
+
+// print array
+for (k = 0; k < 10; k++)
+    print("%d", x[k])
+
+ftell(fp) Returns a long int value corresponding to the fp file pointer position in number of pytes from the start of the file.
+fseek(fp, num_bytes, from_pos) Moves the fp file pointer position by num_bytes bytes relative to position from_pos, which is either:
+SEEK_SET start of file
+SEEK_CUR current position
+SEEK_END end of file
+--------------------------------------------
+Error Handling
+An exception is any situation that causes program to stop execution.
+Exception handling or error handling is an approach to process runtime errors.
+
+C does not explicitly support exception handling. Manage errors:
+- Write code to prevent errors, check for valid inputs
+- Use exit statement to end program execution
+
+errno, perror(), strerror() to identify errors through error codes
+
+The exit command immediately stops execution and sends an exit code back to calling process.
+Using exit to avoid a program crash is good practice because it closes open file connections and processes.
+
+0 for success and -1 for failure are typical return values for exit.
+stdlib.h macros EXIT_SUCCESS and EXIT_FAILURE are commonly used.
+-------------------------------------------
+Using Error Codes
+Some library functions like fopen() set an error code when they do not execute. Error code is set in a global variable named errno.
+errno.h header file
+When using errno set it to 0 before calling a library function.
+
+To output the error code, use fprintf to print to the stderr file stream, the standard error output to the screen.
+declare errno with extern int errno; or include the errno.h header file
+
+perror() for more descriptive message about errors.
+Also obtain message using strerror() in string.h header (returns pointer to message text)
+
+perror() must include a string preceding the actual error message
+There are more than 100 error codes.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+
+extern int errno;
+
+int main() {
+    for (int x = 0; x < 135; x++)
+        fprintf(stderr, "%d: %s\n", x, strerror(x))
+}
+
+Some of the math function in the math.h library set errno to the defined macro value EDOM when a domain out of range.
+ERANGE macro value used when there is a range error.
+
+feof() and ferror() functions can be used for determining I/O errors
+feof(fp) returns a nonzero value if the end of stream has been reached, 0 otherwise
+feof also sets EOF
+ferror(fp) returns a nonzero value if there is an error, 0 otherwise.
