@@ -1,0 +1,120 @@
+THE PREPROCESSOR
+STARTED 09/01/2021
+COMPLETED
+--------------------------------------------
+Preprocessor Directives
+The C preprocessor uses the # directives to make substitutions in program source code before compilation.
+
+#include including header files
+#define, #undef Defining and undefining macros
+#ifdef, #ifndef, #if, #else, #elif, #endif Conditional compilation
+#pragma Implementation and compiler specific
+#error, #warning Output an error or warning message. An error halts compilation
+
+Do not put a semicolon at the end of preprocessor directives.
+
+#include is for including header files in a program
+A header file declares a collection of functions and macros for a library
+
+Useful C libraries:
+stdio input/output functions, including printf and file operations
+stdlib memory management and utilities
+string functions for handling strings
+errno errno global variable and error code macros
+math common mathematical functions
+time time/date utilities
+
+Header files end with .h by convention. The #include has brackets around the filename if the file should be searched for in the compiler include paths.
+A user-defined header file is given the .h extension, but used with quotation marks.
+The file is searched for in the source code directory.
+
+#include <stdio.h>
+#include "custom.h"
+
+Some developers use .hpp for header files.
+
+The #define is used to create object-like macros for constants based on values or expressions.
+#define can also be used to create function-like macros with arguments that will be replaced by the preprocessor.
+
+A preprocessor does a direct replacement without any calculations, so be careful with function-like definitions.
+
+#include <stdio.h>
+#define PI 3.14
+#define AREA(r) (PI*r*r)
+
+int main() {
+    float radius = 2;
+    printf("%3.2f\n", PI);
+    printf("Area is %5.2f\n", AREA(radius));
+    printf("Area with radius + 1: %5.2f\n", AREA(radius+1));
+    return 0;
+}
+
+Parentheses are necessary for area because when radius + 1 is substituted for r, PEMDAS evaluates the multiplication.
+#define AREA(r) (PI*(r)*(r))
+
+When using preprocessor directives, the # must be the first character on the line. There can be any amount of whitespace before # and between the # and the directive.
+If a # is long, use the \continuation character to extend the definition more than one line.
+
+#define CURRENT_YEAR \
+2021
+
+Predefined macros that are always available without requiring the #define directive:
+__DATE__ The current date as a string MM DD YYYY
+__TIME__ The current time as a string hh:mm:ss
+__FILE__ The current filename as a string
+__LINE__ The current line number as an int value
+__STDC__ 1
+--------------------------------------------
+Conditional Compilation Directives
+#ifdef, #ifndef, #undef directives operate on macros created with #define
+
+There will be compilation problems if the same macro is defined twice, so check for this with an #ifdef directive.
+If a macro needs to be redefined, use #undef first.
+
+#define RATE 0.08
+#ifndef TERM
+    #define TERM 24
+#endif
+
+int main() {
+    #ifdef RATE
+        #undef RATE
+        printf("Redefining RATE\n")
+        #define RATE 0.068
+    #else
+        #define RATE 1.00
+    #endif
+
+    printf("%f\t%d\n", RATE, TERM);
+
+    return 0;
+}
+
+An #endif is required to close the block of code.
+An #elif directive is like an else if and can be used to provide additional alternatives.
+
+There are instances where conditional compilation can be useful, but this type of code should be used sparingly.
+defined() preprocessor operator can be used with #if
+#if !defined(LEVEL)
+    //statements 
+#endif
+
+The #if and if statements are different. The #if is evaluated using data available to the preprocessor, which sends only the true brach for compilation.
+--------------------------------------------
+Preprocessor Operators
+The # macro ooperator is called the stringification or stringizing operator
+It tells the preprocessor to convert a parameter to a string constant
+White space on either side of the argument are ignored and escape sequences are recognized.
+
+#define TO_STR(x) #x
+
+printf("%s\n", TO_STR( 123\\12));
+
+The ## operator is also called the token pasting operator because it appends tokens together
+
+#define VAR(name, num) name##num
+
+int x1 = 125;
+int x2 = 250;
+printf("%d\n", VAR(x,1))
